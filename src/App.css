@@ -1,5 +1,22 @@
 .App {
   text-align: center;
+  overflow-x: hidden;
+}
+
+.App .site-page-header {
+  border: 1px solid rgb(235, 237, 240);
+}
+.App .step-form {
+  margin: 5% 10%;
+}
+
+
+.App .step-form .ant-select-selection-item {
+  text-align: left;
+}
+
+.App .step-form .ant-select-selection-placeholder {
+  text-align: left;
 }
 
 .App-logo {

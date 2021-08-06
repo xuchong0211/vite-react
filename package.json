@@ -2,7 +2,7 @@
   "name": "vite-react-quick",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 192.168.2.104",
     "build": "tsc && vite build",
     "serve": "vite preview"
   },
