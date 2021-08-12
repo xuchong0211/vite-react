@@ -1,25 +1,31 @@
 import React from "react";
-import { Button, Form, Input, PageHeader } from "antd";
-import { useBookingData } from "../models/data";
-import { Link } from "react-router-dom";
-import { NextButton } from "../components/common/PageWrapper";
+import { Form, Input } from "antd";
+import { useBookingData } from "../../models/data";
+import { NextButton } from "../../components/common/PageHeaderWrapper";
+import { ViewMetaDate } from "../../lib/types/View";
 
-export default function Step1(props: any) {
-  console.log("step 1 props...................", props);
+export const metaData: ViewMetaDate = {
+  header: {
+    title: "Step 4",
+    subTitle: "ANC Checklist information",
+  },
+};
+
+export default function Step4(props: any) {
   const bookingData: { value: any; update: () => {} } = useBookingData();
   const { step1 } = bookingData.value;
 
   return (
     <Form
-      name="basic"
+      name="step3"
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
       initialValues={step1}
       onFinish={(args) => {
-        console.log("step 1 args", args);
-        bookingData.value.step1 = args;
+        console.log("step 4 args", args);
+        bookingData.value.step4 = args;
         bookingData.update();
-        props.history.push("/Step2");
+        props.history.push("success");
       }}
       onFinishFailed={() => {}}
     >

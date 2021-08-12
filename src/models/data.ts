@@ -1,26 +1,32 @@
-import {createModel, useModel} from "./Utils";
+import { createModel, useModel } from "./Utils";
 
-interface Step1Data extends AnyObject {
-    name: string,
-    citizenId: string,
-    phone: string
-    code: string
+export interface ModelInterface extends AnyObject {
+  value: any;
+  update: () => void;
 }
 
-const count = createModel(1);
-const count2 = createModel({a: {b: {c: 1}}})
-const bookingData = createModel({step1: {}, step2:{}, step3:{}})
+interface Step1Interface extends AnyObject {
+  name?: string;
+  citizenId?: string;
+  phone: string;
+  code?: string;
+}
 
-export const useCount = () => {
-    useModel(count);
-    return count
-}
-export const useCount2 = () => {
-    useModel(count2);
-    return count2;
-}
+const loading = createModel(false);
+const user = createModel({ username: null });
+const bookingData = createModel({ step1: {}, step2: {}, step3: {} });
+
+export const useLoading = () => {
+  useModel(loading);
+  return loading;
+};
 
 export const useBookingData = () => {
-    useModel(bookingData);
-    return bookingData;
-}
+  useModel(bookingData);
+  return bookingData;
+};
+
+export const useUserData = () => {
+  useModel(user);
+  return user;
+};

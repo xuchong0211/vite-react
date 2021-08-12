@@ -1,74 +1,48 @@
-import React, {
-  FC,
-  ReactChildren,
-  ReactComponentElement,
-  ReactElement,
-  ReactNode,
-} from "react";
+import React, { FC, ReactNode, useMemo } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import App from "../App";
-import PageWrapper from "../components/common/PageWrapper";
+import { PageHeaderWrapper } from "../components/common/PageHeaderWrapper";
+import { MyViewType } from "../lib/types/View";
+import Loading from "../components/common/Loading";
+import { useLoading, useUserData } from "../models/data";
+import NotFound from "../NotFound";
 
-function getTitleInfo(key: string): {
-  title: string;
-  subTitle: string | undefined;
-} {
-  switch (key) {
-    case "Step1":
-      return {
-        title: "Step 1",
-        subTitle: "basic information",
-      };
-    case "Step2":
-      return {
-        title: "Step 2",
-        subTitle: "clinic information",
-      };
-    case "Step3":
-      return {
-        title: "Step 3",
-        subTitle: "Symptoms",
-      };
-    case "Step4":
-      return {
-        title: "Step 4",
-        subTitle: "ANC Checklist information",
-      };
-    default:
-      return {
-        title: "unknown",
-        subTitle: undefined,
-      };
+function enhanceView(
+  name: string,
+  View: MyViewType = {
+    default: (props) => null,
+    metaData: {},
   }
-}
-
-function enhanceView(name: string, View: FC): FC {
-  console.log("name", name, View);
-  if (name.startsWith("Step")) {
+): FC {
+  if (View.metaData?.header) {
     return (props: any) => {
       return (
-        <PageWrapper {...props} {...getTitleInfo(name)}>
-          <View {...props} />
-        </PageWrapper>
+        <PageHeaderWrapper {...props} {...View.metaData?.header}>
+          <View.default {...props} />
+        </PageHeaderWrapper>
       );
     };
   }
-  return View;
+  return View.default;
 }
 
-function loadRoutes() {
-  const context = import.meta.globEager("../views/*.tsx");
-  console.log("view context", context);
+function loadRoutes(user: { value: any }) {
+  let context = import.meta.globEager("../views/*.tsx");
+  console.log("view context .............1111...............", context);
+  let register = null;
+  if (user.value.username) {
+    register = import.meta.globEager("../views/register/*.tsx");
+    context = Object.assign(context, register);
+  }
+  console.log("view context .............22222...............", context);
   const routes: any[] = [
     <Route exact path="/" component={App} key="router-App"></Route>,
   ];
   const names: string[] = [];
   let views = Object.keys(context);
   for (let key of views) {
-    let name = key.replace(/(\.\.\/views\/|\.tsx)/g, "");
-    console.log("name", name);
-    let view = enhanceView(name, context[key].default);
-    name = name.split("_").join("/");
+    const name = key.replace(/(\.\.\/views\/|\.tsx)/g, "");
+    const view = enhanceView(name, context[key] as MyViewType);
     names.push(name);
     routes.push(
       <Route
@@ -79,14 +53,30 @@ function loadRoutes() {
       ></Route>
     );
   }
-  console.log("names................................", names);
+  routes.push(
+    <Route
+      exact
+      path={"**"}
+      component={NotFound}
+      key={"router-notFound"}
+    ></Route>
+  );
+  console.log("routes................................", names);
   return routes;
 }
 
 export default function AppRouter() {
+  const loading = useLoading();
+  const user = useUserData();
+  console.log("user 3433333333333333333333", user.value);
+  const routes: ReactNode = useMemo(
+    () => <Switch>{loadRoutes(user)}</Switch>,
+    [user.value.username]
+  );
   return (
     <Router>
-      <Switch>{loadRoutes()}</Switch>
+      <Loading loading={loading.value} />
+      {routes}
     </Router>
   );
 }

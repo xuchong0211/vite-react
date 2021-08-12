@@ -1,15 +1,23 @@
 import React from "react";
-import { Button, Form, DatePicker, Select, Input } from "antd";
-import { useBookingData } from "../models/data";
+import { Form, DatePicker, Select } from "antd";
+import { useBookingData } from "../../models/data";
 import moment from "moment";
-import { Link } from "react-router-dom";
-import { NextButton } from "../components/common/PageWrapper";
+import { NextButton } from "../../components/common/PageHeaderWrapper";
+import { ViewMetaDate } from "../../lib/types/View";
 
 const { Option } = Select;
 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
+};
+
+export const metaData: ViewMetaDate = {
+  header: {
+    title: "Step 2",
+    subTitle: "clinic information",
+    goBack: "/",
+  },
 };
 
 export default function Step2(props: any) {
@@ -34,7 +42,7 @@ export default function Step2(props: any) {
         console.log("update............................", update);
         bookingData.value.step2 = update;
         bookingData.update();
-        props.history.push("Step3");
+        props.history.push("step3");
       }}
       onFinishFailed={() => {}}
     >

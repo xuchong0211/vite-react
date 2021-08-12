@@ -10,7 +10,7 @@ function App(props: any) {
       <header className="App-header">
         <p>Reliance Healthcare Booking System</p>
         <p>
-          <Link to="step1">Start</Link>
+          <Link to="/signIn">Sign In</Link>
         </p>
         <p>
           <Link to="about">about</Link>
