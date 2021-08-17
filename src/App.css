@@ -1,0 +1,90 @@
+.App {
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+button {
+  color: #282c34 !important;
+  cursor: pointer;
+}
+
+.App-body {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+
+.App .App-body .sign-in {
+  width: 100%;
+}
+
+
+.App .App-body .about  {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: bolder;
+  color: #667da2;
+}
+
+
+.App .App-body p  {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #667da2;
+}
+
+
+.App .App-body .fixed-button {
+  width: 100%;
+  position: fixed;
+  bottom: 20px;
+}
+
+
+.App .App-body .fixed-button button {
+  width: 50%;
+  background-color: #3665b1;
+  border-color: #3665b1;
+}
+
+
+.App .App-body .fixed-button a {
+  color: #fff;
+  font-weight: bolder;
+}
+
+
+
+.App-link {
+  color: #3665b1;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+button {
+  font-size: calc(10px + 2vmin);
+}
