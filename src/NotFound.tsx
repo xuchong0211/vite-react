@@ -1,15 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 export default function NotFound() {
+  const history = useHistory();
+  useEffect(() => {
+    history.push("/");
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <p>Page not found</p>
-        <p>
-          <Link to="/">back</Link>
-        </p>
-      </header>
+      <header className="App-body"></header>
     </div>
   );
 }

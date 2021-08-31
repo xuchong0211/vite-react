@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from "react";
 import styled from "styled-components";
 import { Spin } from "antd";
+import { useLoading } from "../../models/context/loading";
 
 const Main = styled.div`
   height: 100%;
@@ -21,7 +22,8 @@ const Main = styled.div`
   }
 `;
 
-const Loading = ({ loading, children }: PropsWithChildren<any>) => {
+const Loading = ({ children }: PropsWithChildren<any>) => {
+  const { loading } = useLoading();
   const Indicator = <Spin spinning={loading} />;
   return (
     <Main>
@@ -35,10 +37,25 @@ const Loading = ({ loading, children }: PropsWithChildren<any>) => {
   );
 };
 
-export const InlineLoading = () => (
-  <div style={{ textAlign: "center" }}>
+export const InlineLoading = ({ style }: { style?: AnyObject }) => (
+  <div style={{ textAlign: "center", ...(style || {}) }}>
     <Spin spinning={true} />
   </div>
 );
+
+export const CenterLoading = () => {
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: "50%",
+        right: 0,
+        left: 0,
+      }}
+    >
+      <Spin spinning={true} />
+    </div>
+  );
+};
 
 export default Loading;

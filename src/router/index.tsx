@@ -4,7 +4,7 @@ import App from "../App";
 import { PageHeaderWrapper } from "../components/common/PageHeaderWrapper";
 import { MyViewType } from "../lib/types/View";
 import Loading from "../components/common/Loading";
-import { useLoading, useUserData } from "../models/data";
+import { useUserData } from "../models/data";
 import NotFound from "../NotFound";
 
 function enhanceView(
@@ -28,13 +28,21 @@ function enhanceView(
 
 function loadRoutes(user: { value: any }) {
   let context = import.meta.globEager("../views/*.tsx");
-  console.log("view context .............1111...............", context);
-  let register = null;
-  if (user.value.username) {
-    register = import.meta.globEager("../views/register/*.tsx");
-    context = Object.assign(context, register);
+  // console.log("view context .............1111...............", context);
+  if (user.value?.views && user.value!.views instanceof Array) {
+    const views = import.meta.globEager(`../views/secured/**/*.tsx`);
+    const authenticatedViews: AnyObject = {};
+    Object.keys(views).map((key: string) => {
+      user.value!.views.forEach((path: string) => {
+        if (key.indexOf(`../views/secured/${path}`) >= 0) {
+          const path = key.replace(/(\/secured)/g, "");
+          authenticatedViews[path] = views[key];
+        }
+      });
+    });
+    context = Object.assign(context, authenticatedViews);
   }
-  console.log("view context .............22222...............", context);
+  // console.log("view context .............22222...............", context);
   const routes: any[] = [
     <Route exact path="/" component={App} key="router-App"></Route>,
   ];
@@ -61,21 +69,21 @@ function loadRoutes(user: { value: any }) {
       key={"router-notFound"}
     ></Route>
   );
-  console.log("routes................................", names);
+  // console.log("routes................................", names);
   return routes;
 }
 
 export default function AppRouter() {
-  const loading = useLoading();
   const user = useUserData();
-  console.log("user 3433333333333333333333", user.value);
+  // console.log("user ...................", user.value);
   const routes: ReactNode = useMemo(
     () => <Switch>{loadRoutes(user)}</Switch>,
     [user.value.username]
   );
+  const basename = (import.meta.env.VITE_BASENAME as string) || undefined;
   return (
-    <Router>
-      <Loading loading={loading.value} />
+    <Router basename={basename}>
+      <Loading />
       {routes}
     </Router>
   );

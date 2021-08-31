@@ -1,34 +1,99 @@
-.registration {
+@body-background: #fff;
+
+.navigation-header {
   text-align: center;
   overflow-x: hidden;
 
 
   .site-page-header {
-    border: 1px solid rgb(235, 237, 240);
+    border-bottom: 1px solid rgb(235, 237, 240);
     position: fixed;
-    background-color: white;
+    background-color: @body-background;
     z-index: 999;
     width: 100%;
+    .ant-page-header-heading-title {
+      font-size: 1.7rem;
+    }
   }
-  .step-form {
 
-    min-height: 100vh;
+  .content {
+
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
-    padding: 85px 0 20px 0;
-    margin: 0% 10%;
+    padding: 85px 0 0px 0;
+
+    &.center {
+      padding: 0;
+    }
+
+    &.step {
+      padding-bottom: 0px;
+      margin-bottom: 0px;
+      justify-content: start;
+
+      form {
+        min-height: 100%;
+        > div:last-child {
+          position: static;
+          bottom: 0;
+        }
+        margin-bottom: 20px;
+      }
+    }
+
     form {
-      height: 100%;
       width: 100%;
+      overflow-y: scroll;
+      padding: 0 10%;
+      textarea {
+        font-size: 1.2rem;
+      }
+      input, .ant-select-selector, .ant-select-selection-search, .ant-select-selection-search-input {
+        font-size: 1.2rem;
+        height: 40px;
+      }
+      .ant-select-selection-search {
+        line-height: 36px;
+      }
+      .ant-select-selection-item {
+        line-height: 36px;
+      }
+      .ant-select-selection-search-input {
+         input, .ant-select-selection-item {
+          height: 40px;
+          &.ant-picker-input {
+          }
+        }
+      }
+      .ant-select-selection-item {
+        text-align: left;
+      }
+      .ant-select-selection-placeholder {
+        text-align: left;
+      }
+      label {
+        font-size: 1.5rem;
+      }
     }
-    .ant-select-selection-item {
-      text-align: left;
-    }
-    .ant-select-selection-placeholder {
-      text-align: left;
+
+
+    .fixed-button {
+      width: 100%;
+      position: fixed;
+      bottom: 20px;
+      button {
+        width: 50%;
+        //background-color: #3665b1;
+        //border-color: #3665b1;
+        a {
+          color: #fff;
+          font-weight: bolder;
+        }
+      }
     }
   }
 }

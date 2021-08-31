@@ -1,11 +1,11 @@
 import React from "react";
 import { FixedButton } from "../components/common/Buttons";
 
-export default function About() {
+export default function NotFound() {
   return (
     <div className="App">
       <header className="App-body">
-        <div className="about">Welcome to About</div>
+        <p>Oops in register!</p>
         <FixedButton to="/" label="Back" />
       </header>
     </div>

@@ -1,22 +1,35 @@
 import { createModel, useModel } from "./Utils";
+import { useLoading as useContectLoading } from "./context/loading";
 
 export interface ModelInterface extends AnyObject {
   value: any;
   update: () => void;
 }
 
-interface Step1Interface extends AnyObject {
-  name?: string;
-  citizenId?: string;
-  phone: string;
-  code?: string;
+export interface PatientInterface extends AnyObject {
+  name: string;
+  citizenId: string;
+  sex: string;
+  birthday: string;
+}
+
+export interface RegisterDataInterface extends AnyObject {
+  patient: PatientInterface;
+  symptoms: AnyObject;
+  ancCheckList: AnyObject;
+  type: string;
 }
 
 const loading = createModel(false);
 const user = createModel({ username: null });
-const bookingData = createModel({ step1: {}, step2: {}, step3: {} });
+const bookingData = createModel({
+  patient: {},
+  symptoms: {},
+  ancChecklist: {},
+});
 
-export const useLoading = () => {
+//deprecate
+const useLoading = () => {
   useModel(loading);
   return loading;
 };

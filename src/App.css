@@ -3,6 +3,13 @@
   overflow-x: hidden;
 }
 
+.logout {
+  z-index: 9999;
+  position: fixed;
+  top : 25px;
+  right :25px
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -15,11 +22,11 @@
 }
 
 button {
-  color: #282c34 !important;
+  /*color: #282c34 !important;*/
   cursor: pointer;
 }
 
-.App-header {
+.App-body {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -30,8 +37,52 @@ button {
   color: white;
 }
 
+
+/*.App-body.white {*/
+/*  background-color: #282c34;*/
+/*}*/
+
+.App .App-body .sign-in {
+  width: 100%;
+}
+
+
+.App .App-body .about  {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: bolder;
+  color: #667da2;
+}
+
+
+.App .App-body p  {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #667da2;
+}
+
+
+.App .App-body .fixed-button {
+  width: 100%;
+  position: fixed;
+  bottom: 20px;
+}
+
+
+.App .App-body .fixed-button button {
+  width: 50%;
+}
+
+
+.App .App-body .fixed-button a {
+  color: #fff;
+  font-weight: bolder;
+}
+
+
+
 .App-link {
-  color: #61dafb;
+  color: #3665b1;
 }
 
 @keyframes App-logo-spin {

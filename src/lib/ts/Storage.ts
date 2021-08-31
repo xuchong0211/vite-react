@@ -1,9 +1,18 @@
  export default class Storage {
 
     static get(name: string) {
-        let data = localStorage.getItem(name);
-        if (!data) return data;
-        return JSON.parse(data);
+        try {
+
+            let data = localStorage.getItem(name);
+            if (!data || data == undefined) {
+                console.log("return data", data);
+                return data;
+            }
+            return JSON.parse(data);
+        } catch (e) {
+            console.log("get localstorage error", name, e)
+            return undefined;
+        }
     }
 
     static set(name: string, val: any) {

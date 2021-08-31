@@ -1,39 +1,53 @@
-import React, { PropsWithChildren } from "react";
-import { Button, Form, PageHeader } from "antd";
+import React, { FC, PropsWithChildren } from "react";
+import { PageHeader } from "antd";
 import "../../styles/form.less";
+import { MyViewType, ViewMetaDate } from "../../lib/types/View";
 
-interface PageHeaderWrapperPropsType extends PropsWithChildren<object> {
+interface PageHeaderWrapperPropsType extends PropsWithChildren<ViewMetaDate> {
   history: { goBack: () => any; push: (path: string) => any };
   title: string;
   subTitle: string;
+  className?: string;
   goBack?: string;
 }
 
 export function PageHeaderWrapper(props: PageHeaderWrapperPropsType) {
   return (
-    <div className="registration">
+    <div className="navigation-header">
       <PageHeader
         className="site-page-header"
         onBack={() =>
-          props.goBack ? props.history.push("/") : props.history.goBack()
+          props.goBack
+            ? props.history.push(props.goBack)
+            : props.history.goBack()
         }
         title={props.title}
         subTitle={props.subTitle}
       />
-      <div className="step-form">{props.children}</div>
+      <div
+        className={props.className ? `content ${props.className}` : "content"}
+      >
+        {props.children}
+      </div>
     </div>
   );
 }
 
-export const NextButton = ({ label = "next" }: { label?: string }) => (
-  <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-    <Button
-      type="primary"
-      htmlType="submit"
-      shape="round"
-      style={{ marginTop: 20 }}
-    >
-      <span style={{ color: "#fff" }}>{label}</span>
-    </Button>
-  </Form.Item>
-);
+export function enhanceView(
+  name: string,
+  View: MyViewType = {
+    default: (props) => null,
+    metaData: {},
+  }
+): FC {
+  if (View.metaData?.header) {
+    return (props: any) => {
+      return (
+        <PageHeaderWrapper {...props} {...View.metaData?.header}>
+          <View.default {...props} />
+        </PageHeaderWrapper>
+      );
+    };
+  }
+  return View.default;
+}

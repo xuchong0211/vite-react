@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
 export interface MyViewType {
   default: FC;
@@ -6,5 +6,10 @@ export interface MyViewType {
 }
 
 export interface ViewMetaDate {
-  header?: { title: string; subTitle: string; goBack?: string };
+  header?: {
+    title: string;
+    subTitle: string | undefined | null;
+    goBack?: string;
+    className?: string;
+  };
 }
